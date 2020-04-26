@@ -1,0 +1,55 @@
+package com.javabycode.springmvc.model;
+
+import java.util.Date;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class library_add_book_main {
+
+	
+	public void add_db(String name, String Author, int Price,String Book_edition, int pages,String language,Date date_of_publish,Boolean avaliblity,int isbn)
+	{
+	Book_details book = new Book_details();
+	book.setBook_name(name);
+	book.setBook_author(Author);
+	book.setBook_price(Price);
+	book.setBook_edition(Book_edition);
+	book.setPages(pages);
+	book.setLanguage(language);
+	book.setDate_of_publish(date_of_publish);
+	book.setAvailability(avaliblity);
+	book.setISBN(isbn);
+	
+	SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
+	Session session = sessionfactory.openSession();
+	session.beginTransaction();
+	session.save(book);
+	session.getTransaction().commit();
+	session.close();
+    book= null;
+	}
+	
+	public void add_db(Book_details book_details)
+	{
+	Book_details book = new Book_details();
+	book.setBook_name(book_details.getBook_name());
+	book.setBook_author(book_details.getBook_author());
+	book.setBook_price(book_details.getBook_price());
+	book.setBook_edition(book_details.getBook_edition());
+	book.setPages(book_details.getPages());
+	book.setLanguage(book_details.getLanguage());
+	book.setDate_of_publish(book_details.getDate_of_publish());
+	book.setAvailability(true);
+	book.setISBN(book_details.getISBN());
+	
+	SessionFactory sessionfactory = new Configuration().configure().buildSessionFactory();
+	Session session = sessionfactory.openSession();
+	session.beginTransaction();
+	session.save(book);
+	session.getTransaction().commit();
+	session.close();
+  //  book= null;
+	}
+}
